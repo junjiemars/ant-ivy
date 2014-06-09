@@ -1,0 +1,22 @@
+<ivy-module version="1.0">
+    <info 
+        organisation="org.tao"
+        module="xws"
+        status="integration">
+		<ivyauthor name="junjiemars@gmail.com" />
+	</info>
+	<configurations>
+		<conf name="build" 
+			description="study java programming" />
+		<conf name="test" visibility="private"
+			description="for testing xws" />
+	</configurations>
+
+	<!--
+	<publications>
+		<artifact name="xws" type="jar" conf="build" />
+	</publications>
+	-->
+
+    <dependencies/>
+</ivy-module>
