@@ -12,5 +12,8 @@
 hs_err_pid*
 
 # ivy 
-bin/
+src/*/bin
 *.properties
+
+# vim
+*.swp
