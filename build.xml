@@ -1,4 +1,4 @@
-<project name="all" default="build-wars"
+<project name="ant-ivy.git" default="build-jars"
          xmlns:ivy="antlib:org.apache.ivy.ant">
 	<description>         
 		the base build file
