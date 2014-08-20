@@ -1,6 +1,8 @@
 <project name="ivy-install" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="${ivy.dir}/ivy-install.properties" />
+    <property name="ivy.local.default.root" value="${dist.dir}/local"/>
+    <property name="ivy.shared.default.root" value="${dist.dir}/dist/shared"/>
 
 	<target name="debug">
 		<echo message="${root.dir}" />
@@ -30,7 +32,7 @@
 		<property name="ivy.initialized" value="true"/>
     </target>
 
-	<target name="resolve-ivy" depends="install-ivy" 
+	<target name="resolve-ivy" depends="clean-lib,install-ivy" 
 		description="resolve and retrieve dependencies with ivy">
         <mkdir dir="${lib.dir}"/> 
         <ivy:resolve file="${ivy.file}"/>
@@ -45,9 +47,9 @@
 	<target name="publish-jar" depends="clean-build,clean-lib,jar" 
 		description="publish jars in the ivy repository">
         <ivy:publish artifactspattern="${build.dir}/[artifact].[ext]" 
-        	resolver="shared"
+        	resolver="${publish.resolver}"
             pubrevision="${version}" 
-            status="release"
+            status="${publish.status}"
 			forcedeliver="false"
         />
         <echo message="${ant.project.name} released with v${version}" />
@@ -56,9 +58,9 @@
 	<target name="publish-war" depends="clean,war" 
 		description="publish wars in the ivy repository">
         <ivy:publish artifactspattern="${build.dir}/[artifact].[ext]" 
-        	resolver="shared"
+        	resolver="${publish.resolver}"
             pubrevision="${version}" 
-            status="release"
+            status="${publish.status}"
 			forcedeliver="false"
         />
         <echo message="${ant.project.name} released with v${version}" />
@@ -69,38 +71,21 @@
 		
 	</target>
 
-	<target name="jar-dir" depends="version,compile">
-		<echo message="${jar.file}" />
+    <target name="jar" depends="version,compile" 
+		description="make jar file for this project">
+		<!--<echo message="${jar.file}" />-->
 		<copy todir="${classes.dir}">
 			<fileset dir="${src.dir}">
 				<include name="**/*.properties"/>
 			</fileset>
 		</copy>
-    </target>
-
-	<target name="jar-exe" depends="jar-dir" if="main.class">
-		 <jar destfile="${jar.file}">
+        <jar destfile="${jar.file}">
             <fileset dir="${classes.dir}" />
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
-                <attribute name="Build-Version" value="${version}"/>
-				<attribute name="Main-Class" value="${main.class}"/>
+                <attribute name="Build-Version" value="${version}" />
             </manifest>
         </jar>
-	</target>
-
-	<target name="jar-lib" depends="jar-dir" unless="main.class">
-		<jar destfile="${jar.file}">
-            <fileset dir="${classes.dir}" />
-            <manifest>
-                <attribute name="Built-By" value="${user.name}"/>
-                <attribute name="Build-Version" value="${version}"/>
-            </manifest>
-        </jar>
-	</target>
-
-    <target name="jar" depends="jar-exe,jar-lib" 
-		description="make jar file for this project">
     </target>
 
 	<target name="check-log4j">
@@ -179,6 +164,7 @@
 			classpathref="lib.path.id" 
 			debug="${jc.debug}" 
 			optimize="${jc.optimize}"
+			encoding="${jc.encoding}"
 			source="${jc.source}"
 			target="${jc.target}"
 			deprecation="${jc.deprecation}"	
@@ -210,6 +196,12 @@
 			else="log4j.rootLogger=ERROR,R">
 			<istrue value="${jc.debug}"/>
 		</condition>
+        <condition property="publish.resolver" value="local" else="shared">
+            <istrue value="${jc.debug}"/>
+        </condition>
+        <condition property="publish.status" value="integration" else="release">
+            <istrue value="${jc.debug}"/>
+        </condition>
 	</target>
 
     <target name="ivy-new-version" depends="install-ivy,check-revision" 

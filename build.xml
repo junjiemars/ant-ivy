@@ -1,7 +1,11 @@
-<project name="ant-ivy" default="run"
+<project name="all" default="build-wars"
          xmlns:ivy="antlib:org.apache.ivy.ant">
-         
-	<property name="ivy.dir" value="${basedir}/ivy" />
+	<description>         
+		the base build file
+	</description>
+
+    <property name="root.dir" value="${basedir}" />
+	<property name="ivy.dir" value="${root.dir}/ivy" />
 
 	<target name="publish-native-lib">
 		<subant target="publish">
@@ -33,7 +37,7 @@
 
 	<target name="build-jars" depends="publish-native-lib,jars" 
 		description="compile, jar and publish all projects">
-		<subant target="run-jar" buildpathref="build-path" />
+		<subant target="publish-jar" buildpathref="build-path" />
 	</target>
 
 	<target name="build-wars" depends="build-jars,wars" 
@@ -45,10 +49,6 @@
 		description="compile, test all projects">
 		<subant target="test" buildpathref="build-path" />
 	</target>
-
-	<target name="run" depends="build-jars">
-		<subant target="run" buildpathref="build-path" />
-	</target>	
 
 	<target name="clean-jars" depends="jars" 
 		description="clean jars build files and libraries">
@@ -68,6 +68,7 @@
 	<target name="clean" depends="clean-jars,clean-wars,clean-tests" 
 		description="clean all projects">
     	<subant target="clean" buildpathref="build-path" />
+        <delete dir="${basedir}/dist"/>
   		<ivy:cleancache />
 	</target>
  
