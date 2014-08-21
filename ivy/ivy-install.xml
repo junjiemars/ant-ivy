@@ -1,3 +1,4 @@
+<!DOCTYPE project>
 <project name="ivy-install" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="${ivy.dir}/ivy-install.properties" />
@@ -71,21 +72,38 @@
 		
 	</target>
 
-    <target name="jar" depends="version,compile" 
-		description="make jar file for this project">
-		<!--<echo message="${jar.file}" />-->
-		<copy todir="${classes.dir}">
-			<fileset dir="${src.dir}">
-				<include name="**/*.properties"/>
-			</fileset>
-		</copy>
+    <target name="jar-dir" depends="version,compile">
+        <echo message="${jar.file}" />
+        <copy todir="${classes.dir}">
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="jar-exe" depends="jar-dir" if="main.class">
+         <jar destfile="${jar.file}">
+            <fileset dir="${classes.dir}" />
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Build-Version" value="${version}"/>
+                <attribute name="Main-Class" value="${main.class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="jar-lib" depends="jar-dir" unless="main.class">
         <jar destfile="${jar.file}">
             <fileset dir="${classes.dir}" />
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
-                <attribute name="Build-Version" value="${version}" />
+                <attribute name="Build-Version" value="${version}"/>
             </manifest>
         </jar>
+    </target>
+
+    <target name="jar" depends="jar-exe,jar-lib"
+		description="make jar file for this project">
     </target>
 
 	<target name="check-log4j">

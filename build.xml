@@ -1,3 +1,4 @@
+<!DOCTYPE project>
 <project name="ant-ivy.git" default="build-jars"
          xmlns:ivy="antlib:org.apache.ivy.ant">
 	<description>         

@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>${classes.dir}</name>
-			<type>2</type>
-			<location>/home/junjie/ide/luna/ant-ivy.git/${classes.dir}</location>
-		</link>
-	</linkedResources>
 </projectDescription>
