@@ -15,6 +15,7 @@ public class Main {
 		for (byte[] b : s) {
 			out.println(new String(b));
 		}
+		r.close();
 	}
 
 }
