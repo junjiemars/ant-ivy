@@ -37,7 +37,7 @@
 		description="resolve and retrieve dependencies with ivy">
         <mkdir dir="${lib.dir}"/> 
         <ivy:resolve file="${ivy.file}"/>
-        <ivy:retrieve pattern="${lib.dir}/[artifact].[ext]" />
+        <ivy:retrieve pattern="${lib.dir}/[artifact](-[classifier]).[ext]" />
     </target>
 
     <target name="report-ivy" depends="resolve-ivy" 

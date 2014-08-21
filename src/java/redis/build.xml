@@ -1,5 +1,5 @@
 <!DOCTYPE project>
-<project name="redis" default="run">
+<project name="redis" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property name="root.dir" value="${basedir}/../../.." />
 	<property name="ivy.dir" value="${root.dir}/ivy" />
@@ -24,7 +24,13 @@
 
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
-	<target name="run" depends="jar">
+	<!--
+    <target name="ivy-get-sources" description="fetch lib sources">
+        <ivy:retrieve pattern="libsources/[artifact]-[type].[ext]" type="source" />
+    </target>
+    -->
+
+    <target name="run" depends="jar">
 		<java jar="${build.dir}/redis.jar" fork="true">
 			<!--
 			<jvmarg value="-Xdebug" />

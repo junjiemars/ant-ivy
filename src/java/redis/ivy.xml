@@ -5,11 +5,14 @@
         status="integration">
 		<ivyauthor name="junjiemars@gmail.com" />
 	</info>
+	
 	<configurations>
 		<conf name="build" 
 			description="study java programming" />
 		<conf name="test" visibility="private"
 			description="for testing foo" />
+		<conf name="sources" visibility="public"
+			description="retrive javadoc"/>
 	</configurations>
 
 	<!--
@@ -17,9 +20,10 @@
 		<artifact name="foo" type="jar" conf="build" />
 	</publications>
 	-->
-
-    <dependencies>
+   <dependencies>
     	<dependency org="redis.clients" name="jedis" rev="2.5.2" 
-    		conf="build->default" />
+    		conf="build->default,sources"/>
+    	<dependency org="org.springframework.data" name="spring-data-redis" 
+    		rev="1.3.2.RELEASE" conf="build->default,sources" />
     </dependencies>
 </ivy-module>
