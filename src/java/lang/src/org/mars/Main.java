@@ -1,8 +1,6 @@
 package org.mars;
 import static java.lang.System.out;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+
 
 public class Main {
 	public static final void main(String[] args) {

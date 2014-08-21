@@ -1,5 +1,5 @@
 <!DOCTYPE project>
-<project name="lang" default="run">
+<project name="redis" default="run">
 
 	<property name="root.dir" value="${basedir}/../../.." />
 	<property name="ivy.dir" value="${root.dir}/ivy" />
@@ -20,7 +20,7 @@
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
 	<target name="run" depends="jar">
-		<java jar="${build.dir}/lang.jar" fork="true">
+		<java jar="${build.dir}/redis.jar" fork="true">
 			<!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,suspend=y,address=8000"/>
