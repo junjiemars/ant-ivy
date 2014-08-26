@@ -10,6 +10,7 @@
 	<property name="lib.dir" value="${basedir}/lib" />
 	<property name="build.dir" value="${basedir}/bin" />
 	<property name="classes.dir" value="${build.dir}/classes" />
+    <property name="cc.dir" value="${lib.dir}" />
 	<property name="main.class" value="org.mars.Jsql"/>
 	<property name="ns.dir" value="${src.dir}/org/mars"/>
 	
@@ -25,9 +26,13 @@
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
 	<target name="cc">
+        <jjtree target="${ns.dir}/Jsql.jjt"
+            outputdirectory="${ns.dir}/"
+            javacchome="${cc.dir}">
+        </jjtree>
 		<javacc target="${ns.dir}/Jsql.jj"
 			outputdirectory="${ns.dir}/"
-			javacchome="${lib.dir}">
+			javacchome="${cc.dir}">
 		</javacc>
 	</target>
 	
