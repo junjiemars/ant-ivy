@@ -1,0 +1,117 @@
+options {
+    STATIC = false;
+}
+
+PARSER_BEGIN(Jsql)
+
+package org.mars;
+import java.io.StringReader;
+import java.io.Reader;
+import static java.lang.System.out;
+
+public final class Jsql {
+    public Jsql(final String s) {
+        this((Reader)(new StringReader(s)));
+    }
+
+    public final static void main(String[] args) {
+        try {
+            out.println("input:" + args[0]);
+            Jsql jsql = new Jsql(args[0]);
+            jsql.start();
+        } catch (final Exception e) {
+           e.printStackTrace(); 
+        }
+    }
+}
+
+PARSER_END(Jsql)
+
+SKIP: {
+    " "  |
+    "\t" |
+    "\n" |
+    "\r" 
+}
+
+TOKEN: /* reserved */ {
+    <SELECT: "select"> |
+    <FROM: "from"> |
+    <WHERE: "where"> |
+    <INSERT: "insert"> |
+    <INTO: "into"> |
+    <VALUES: "values"> |
+    <ORDER: "order"> |
+    <BY: "by"> |
+    <AND: "and"> |
+    <OR: "or"> |
+    <NOT: "not">
+}
+
+TOKEN: /* comparator */ {
+    <EQ: "="> |
+    <NE: "<>"> |
+    <LT: "<"> |
+    <GT: ">"> |
+    <LE: "<="> |
+    <GE: ">=">
+}
+
+TOKEN: /* parenthesis */ {
+    <LP: "("> |
+    <RP: ")">
+}
+
+TOKEN: /* number */ {
+    <NUMBER: <NSIGN> (<DIGIT>)+ > |
+
+    <#DIGIT: ["0"-"9"] > |
+    <#NSIGN: ["+", "-"] >
+}
+
+TOKEN: /* identifier */ {
+    <ID: <LETTER> (<LETTER>|<DIGIT>)* > |
+    <#LETTER: ["_", "a"-"z", "A"-"Z"] >
+}
+
+
+
+void start() : {
+} {
+    select() ";"
+}
+
+void select() : {
+
+} {
+    <SELECT>
+    (
+        fields()
+    )
+    <FROM>
+    (
+        tables()
+    )
+
+    { 
+        out.println("select statement");
+    }
+}
+
+void fields() : {
+    Token fid;
+} {
+    fid=<ID> ("," fields())*
+    {
+        out.println(fid.image);
+    }
+}
+
+void tables() : {
+    Token tid;
+} {
+    tid=<ID> ("," tables())*
+    {
+        out.println(tid.image);
+    }
+}
