@@ -2,6 +2,9 @@
 /*@egen*/options {
                
                            
+    STATIC=true;
+    SUPPORT_CLASS_VISIBILITY_PUBLIC=true;
+                      
 }
 
 PARSER_BEGIN(Jsql)
@@ -23,7 +26,7 @@ public final class Jsql/*@bgen(jjtree)*/implements JsqlTreeConstants/*@egen*/ {/
         try {
             out.println("input:" + args[0]);
             Jsql jsql = new Jsql(args[0]);
-            ASTstart n = jsql.start();
+            ASTsql n = jsql.start();
             n.dump("");
         } catch (final Exception e) {
             out.println(e.getMessage()); 
@@ -83,18 +86,20 @@ TOKEN: /* identifier */ {
 
 
 
-ASTstart start()        : {/*@bgen(jjtree) start */
-  ASTstart jjtn000 = new ASTstart(JJTSTART);
+ASTsql start()      : {/*@bgen(jjtree) sql */
+  ASTsql jjtn000 = new ASTsql(JJTSQL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
 /*@egen*/
-} {/*@bgen(jjtree) start */
+} {/*@bgen(jjtree) sql */
     try {
 /*@egen*/
     select() ";"/*@bgen(jjtree)*/
     {
       jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtn000.jjtSetLastToken(getToken(0));
     }
 /*@egen*/
     { return (jjtn000); }/*@bgen(jjtree)*/
@@ -115,14 +120,21 @@ ASTstart start()        : {/*@bgen(jjtree) start */
     } finally {
       if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
       }
     }
 /*@egen*/
 }
 
-void select() : {
-
-} {
+void select()         : {/*@bgen(jjtree) select */
+  ASTselect jjtn000 = new ASTselect(JJTSELECT);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
+/*@egen*/
+} {/*@bgen(jjtree) select */
+    try {
+/*@egen*/
     <SELECT>
     (
         fields()
@@ -130,27 +142,170 @@ void select() : {
     <FROM>
     (
         tables()
-    )
-
-    { 
-        out.println("select statement");
-    }
-}
-
-void fields() : {
-    Token fid;
-} {
-    fid=<ID> ("," fields())*
+    )/*@bgen(jjtree)*/
     {
-        out.println(fid.image);
+      jjtree.closeNodeScope(jjtn000, true);
+      jjtc000 = false;
+      jjtn000.jjtSetLastToken(getToken(0));
     }
+/*@egen*/ /*#select(>1)*/
+
+    //[where()]
+    { 
+    }/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
+    }
+/*@egen*/
 }
 
-void tables() : {
+void fields()         : {/*@bgen(jjtree) fields */
+  ASTfields jjtn000 = new ASTfields(JJTFIELDS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
+/*@egen*/
+} {/*@bgen(jjtree) fields */
+    try {
+/*@egen*/
+    fieldId() ("," fieldId())*/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
+    }
+/*@egen*/
+    //( fid=<ID> ("," fid=<ID>)* ) /*#fields(>1)*/
+    //{
+    //    out.println(fid.image);
+    //}
+}
+
+void fieldId()          : {/*@bgen(jjtree) fieldId */
+    ASTfieldId jjtn000 = new ASTfieldId(JJTFIELDID);
+    boolean jjtc000 = true;
+    jjtree.openNodeScope(jjtn000);
+    jjtn000.jjtSetFirstToken(getToken(1));
+/*@egen*/
+    Token fid;
+} {/*@bgen(jjtree) fieldId */
+   try {
+/*@egen*/
+   fid=<ID>/*@bgen(jjtree)*/
+   {
+     jjtree.closeNodeScope(jjtn000, true);
+     jjtc000 = false;
+     jjtn000.jjtSetLastToken(getToken(0));
+   }
+/*@egen*/ 
+   {
+       //jjtThis.firstToken = fid;
+       //jjtThis.lastToken = getToken(0);
+       out.println(fid.image);
+   }/*@bgen(jjtree)*/
+   } finally {
+     if (jjtc000) {
+       jjtree.closeNodeScope(jjtn000, true);
+       jjtn000.jjtSetLastToken(getToken(0));
+     }
+   }
+/*@egen*/
+}
+
+void tables()         : {/*@bgen(jjtree) tables */
+  ASTtables jjtn000 = new ASTtables(JJTTABLES);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
+/*@egen*/
+} {/*@bgen(jjtree) tables */
+    try {
+/*@egen*/
+    tableId() ("," tableId())*/*@bgen(jjtree)*/
+    } catch (Throwable jjte000) {
+      if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        throw (RuntimeException)jjte000;
+      }
+      if (jjte000 instanceof ParseException) {
+        throw (ParseException)jjte000;
+      }
+      throw (Error)jjte000;
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
+    }
+/*@egen*/
+    //( /*tid=*/<ID> ("," <ID>)* ) #tables(>1)
+    //{
+    //    out.println(tid.image);
+    //}
+}
+
+void tableId()          : {/*@bgen(jjtree) tableId */
+    ASTtableId jjtn000 = new ASTtableId(JJTTABLEID);
+    boolean jjtc000 = true;
+    jjtree.openNodeScope(jjtn000);
+    jjtn000.jjtSetFirstToken(getToken(1));
+/*@egen*/
     Token tid;
-} {
-    tid=<ID> ("," tables())*
+} {/*@bgen(jjtree) tableId */
+    try {
+/*@egen*/
+    tid=<ID>/*@bgen(jjtree)*/
+    {
+      jjtree.closeNodeScope(jjtn000, true);
+      jjtc000 = false;
+      jjtn000.jjtSetLastToken(getToken(0));
+    }
+/*@egen*/
     {
         out.println(tid.image);
+    }/*@bgen(jjtree)*/
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
     }
+/*@egen*/
 }

@@ -5,12 +5,14 @@ options {
 PARSER_BEGIN(Adder)
 
 package org.mars;
+import java.io.StringReader;
 
     public class Adder {
         public static void main(String[] args) 
            throws ParseException, TokenMgrError {
-            Adder parser = new Adder(System.in);
-            parser.Start();
+            Adder parser = new Adder(/*System.in*/new StringReader(args[0]));
+            int i = parser.start();
+            System.out.println(String.format("%s = %d", args[0], i));
         }
     }
 
@@ -21,14 +23,24 @@ SKIP: {"\n" | "\r" | "\r\n"}
 TOKEN: {<PLUS:"+" >}
 TOKEN: {<NUMBER:(["0"-"9"])+ >}
 
-void Start():
-{}
-{
-    <NUMBER>
+int start(): {
+    int i;
+    int value;
+} {
+    value = INT()
     (
         <PLUS>
-        <NUMBER>
+        i = INT()
+        { value += i; }
     )*
     <EOF>
+    { return value; }
+}
+
+int INT(): {
+    Token t;
+} {
+   t = <NUMBER>
+   { return Integer.parseInt(t.image); }
 }
 

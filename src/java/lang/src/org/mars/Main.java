@@ -19,11 +19,13 @@ public class Main {
 		if (1.11f - f0 > 0.1f) 
 			out.println("1.11f-f0>0.1f");
 		/*
-		String[] ss = new String[]{"A","B","C"};
+		
 		List<String> l = Arrays.asList(ss);
 		for (String s : l) 
 			out.println(s);
 		*/
+		String[] ss = new String[]{"A","B","C"};
+		out.println(ss.length);
 	}
 
 }

@@ -22,6 +22,6 @@
 	-->
    <dependencies>
    		<dependency org="net.java.dev.javacc" name="javacc" rev="6.1.2"
-   			conf="build->default" />
+   			conf="build->default,sources" />
    </dependencies>
 </ivy-module>

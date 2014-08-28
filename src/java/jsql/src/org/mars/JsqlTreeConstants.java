@@ -3,13 +3,21 @@ package org.mars;
 
 public interface JsqlTreeConstants
 {
-  public int JJTSTART = 0;
-  public int JJTVOID = 1;
+  public int JJTSQL = 0;
+  public int JJTSELECT = 1;
+  public int JJTFIELDS = 2;
+  public int JJTFIELDID = 3;
+  public int JJTTABLES = 4;
+  public int JJTTABLEID = 5;
 
 
   public String[] jjtNodeName = {
-    "start",
-    "void",
+    "sql",
+    "select",
+    "fields",
+    "fieldId",
+    "tables",
+    "tableId",
   };
 }
-/* JavaCC - OriginalChecksum=5fb6d01ff030e341db87d0943406a71d (do not edit this line) */
+/* JavaCC - OriginalChecksum=5c72e66ac8eb9e560d2ccef8846aebfd (do not edit this line) */

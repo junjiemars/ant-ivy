@@ -1,6 +1,9 @@
 options {
     MULTI=true;
     NODE_DEFAULT_VOID=true;
+    STATIC=true;
+    SUPPORT_CLASS_VISIBILITY_PUBLIC=true;
+    TRACK_TOKENS=true;
 }
 
 PARSER_BEGIN(Jsql)
@@ -19,7 +22,7 @@ public final class Jsql {
         try {
             out.println("input:" + args[0]);
             Jsql jsql = new Jsql(args[0]);
-            ASTstart n = jsql.start();
+            ASTsql n = jsql.start();
             n.dump("");
         } catch (final Exception e) {
             out.println(e.getMessage()); 
@@ -79,14 +82,13 @@ TOKEN: /* identifier */ {
 
 
 
-ASTstart start() #start : {
+ASTsql start() #sql : {
 } {
     select() ";"
     { return (jjtThis); }
 }
 
-void select() : {
-
+void select() #select : {
 } {
     <SELECT>
     (
@@ -95,27 +97,57 @@ void select() : {
     <FROM>
     (
         tables()
-    )
+    ) /*#select(>1)*/
 
+    //[where()]
     { 
-        out.println("select statement");
     }
 }
 
-void fields() : {
+void fields() #fields : {
+} {
+    fieldId() ("," fieldId())*
+    //( fid=<ID> ("," fid=<ID>)* ) /*#fields(>1)*/
+    //{
+    //    out.println(fid.image);
+    //}
+}
+
+void fieldId() #fieldId : {
     Token fid;
 } {
-    fid=<ID> ("," fields())*
-    {
-        out.println(fid.image);
-    }
+   fid=<ID> 
+   {
+       //jjtThis.firstToken = fid;
+       //jjtThis.lastToken = getToken(0);
+       out.println(fid.image);
+   }
 }
 
-void tables() : {
+void tables() #tables : {
+} {
+    tableId() ("," tableId())*
+    //( /*tid=*/<ID> ("," <ID>)* ) #tables(>1)
+    //{
+    //    out.println(tid.image);
+    //}
+}
+
+void tableId() #tableId : {
     Token tid;
 } {
-    tid=<ID> ("," tables())*
+    tid=<ID>
     {
         out.println(tid.image);
     }
 }
+//
+//void where() # where : {
+//} {
+//    <WHERE> (expressions())+
+//}
+//
+//void expressions() # expressions : {
+//} {
+//    
+//}

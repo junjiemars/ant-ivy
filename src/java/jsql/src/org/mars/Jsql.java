@@ -14,7 +14,7 @@ public final class Jsql/*@bgen(jjtree)*/implements JsqlTreeConstants, JsqlConsta
         try {
             out.println("input:" + args[0]);
             Jsql jsql = new Jsql(args[0]);
-            ASTstart n = jsql.start();
+            ASTsql n = jsql.start();
             n.dump("");
         } catch (final Exception e) {
             out.println(e.getMessage());
@@ -22,15 +22,17 @@ public final class Jsql/*@bgen(jjtree)*/implements JsqlTreeConstants, JsqlConsta
         }
     }
 
-  static final public ASTstart start() throws ParseException {/*@bgen(jjtree) start */
-  ASTstart jjtn000 = new ASTstart(JJTSTART);
+  static final public ASTsql start() throws ParseException {/*@bgen(jjtree) sql */
+  ASTsql jjtn000 = new ASTsql(JJTSQL);
   boolean jjtc000 = true;
   jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
     try {
       select();
       jj_consume_token(29);
 jjtree.closeNodeScope(jjtn000, true);
       jjtc000 = false;
+      jjtn000.jjtSetLastToken(getToken(0));
 {if ("" != null) return (jjtn000);}
     } catch (Throwable jjte000) {
 if (jjtc000) {
@@ -49,55 +51,172 @@ if (jjtc000) {
     } finally {
 if (jjtc000) {
         jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
       }
     }
     throw new Error("Missing return statement in function");
   }
 
-  static final public void select() throws ParseException {
-    jj_consume_token(SELECT);
-    fields();
-    jj_consume_token(FROM);
-    tables();
-out.println("select statement");
-  }
-
-  static final public void fields() throws ParseException {Token fid;
-    fid = jj_consume_token(ID);
-    label_1:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 30:{
-        ;
-        break;
-        }
-      default:
-        jj_la1[0] = jj_gen;
-        break label_1;
-      }
-      jj_consume_token(30);
+  static final public void select() throws ParseException {/*@bgen(jjtree) select */
+  ASTselect jjtn000 = new ASTselect(JJTSELECT);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
+    try {
+      jj_consume_token(SELECT);
       fields();
+      jj_consume_token(FROM);
+      tables();
+jjtree.closeNodeScope(jjtn000, true);
+      jjtc000 = false;
+      jjtn000.jjtSetLastToken(getToken(0));
+
+    } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+    } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
     }
-out.println(fid.image);
   }
 
-  static final public void tables() throws ParseException {Token tid;
-    tid = jj_consume_token(ID);
-    label_2:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
-      case 30:{
-        ;
-        break;
+  static final public void fields() throws ParseException {/*@bgen(jjtree) fields */
+  ASTfields jjtn000 = new ASTfields(JJTFIELDS);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
+    try {
+      fieldId();
+      label_1:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case 30:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[0] = jj_gen;
+          break label_1;
         }
-      default:
-        jj_la1[1] = jj_gen;
-        break label_2;
+        jj_consume_token(30);
+        fieldId();
       }
-      jj_consume_token(30);
-      tables();
+    } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+    } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
     }
+  }
+
+  static final public void fieldId() throws ParseException {/*@bgen(jjtree) fieldId */
+    ASTfieldId jjtn000 = new ASTfieldId(JJTFIELDID);
+    boolean jjtc000 = true;
+    jjtree.openNodeScope(jjtn000);
+    jjtn000.jjtSetFirstToken(getToken(1));Token fid;
+    try {
+      fid = jj_consume_token(ID);
+jjtree.closeNodeScope(jjtn000, true);
+     jjtc000 = false;
+     jjtn000.jjtSetLastToken(getToken(0));
+//jjtThis.firstToken = fid;
+       //jjtThis.lastToken = getToken(0);
+       out.println(fid.image);
+    } finally {
+if (jjtc000) {
+       jjtree.closeNodeScope(jjtn000, true);
+       jjtn000.jjtSetLastToken(getToken(0));
+     }
+    }
+  }
+
+  static final public void tables() throws ParseException {/*@bgen(jjtree) tables */
+  ASTtables jjtn000 = new ASTtables(JJTTABLES);
+  boolean jjtc000 = true;
+  jjtree.openNodeScope(jjtn000);
+  jjtn000.jjtSetFirstToken(getToken(1));
+    try {
+      tableId();
+      label_2:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk_f():jj_ntk) {
+        case 30:{
+          ;
+          break;
+          }
+        default:
+          jj_la1[1] = jj_gen;
+          break label_2;
+        }
+        jj_consume_token(30);
+        tableId();
+      }
+    } catch (Throwable jjte000) {
+if (jjtc000) {
+        jjtree.clearNodeScope(jjtn000);
+        jjtc000 = false;
+      } else {
+        jjtree.popNode();
+      }
+      if (jjte000 instanceof RuntimeException) {
+        {if (true) throw (RuntimeException)jjte000;}
+      }
+      if (jjte000 instanceof ParseException) {
+        {if (true) throw (ParseException)jjte000;}
+      }
+      {if (true) throw (Error)jjte000;}
+    } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
+    }
+  }
+
+  static final public void tableId() throws ParseException {/*@bgen(jjtree) tableId */
+    ASTtableId jjtn000 = new ASTtableId(JJTTABLEID);
+    boolean jjtc000 = true;
+    jjtree.openNodeScope(jjtn000);
+    jjtn000.jjtSetFirstToken(getToken(1));Token tid;
+    try {
+      tid = jj_consume_token(ID);
+jjtree.closeNodeScope(jjtn000, true);
+      jjtc000 = false;
+      jjtn000.jjtSetLastToken(getToken(0));
 out.println(tid.image);
+    } finally {
+if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+        jjtn000.jjtSetLastToken(getToken(0));
+      }
+    }
   }
 
   static private boolean jj_initialized_once = false;
