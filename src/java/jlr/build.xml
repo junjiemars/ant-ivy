@@ -10,7 +10,7 @@
 	<property name="lib.dir" value="${basedir}/lib" />
 	<property name="build.dir" value="${basedir}/bin" />
 	<property name="classes.dir" value="${build.dir}/classes" />
-	<property name="main.class" value="org.mars.Calc"/>
+	<property name="main.class" value="Jlr"/>
 	<property name="ns.dir" value="${src.dir}/org/mars"/>
 	
 	<path id="lib.path.id">
@@ -26,6 +26,9 @@
 
 	<target name="cc">
 		<copy file="${src.dir}/Calc.g" tofile="${ns.dir}/Calc.g"/>
+		<!--
+		<copy file="${src.dir}/Jlr.java" tofile="${ns.dir}/Jlr.java"/>
+		-->
 		<exec executable="antlr.sh" os="Mac OS X" spawn="true">
 			<arg value="${ns.dir}/Calc.g"/>
 			<arg value="-o"/>
@@ -61,7 +64,7 @@
 
 	<target name="run" depends="cc,jar">
 		<java jar="${build.dir}/jlr.jar" fork="true">
-            <arg line=" 1+2+3+4+5"/>
+			<arg line="calc parrot"/>
 			<!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,suspend=y,address=8000"/>
