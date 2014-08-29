@@ -10,7 +10,7 @@
 	<property name="lib.dir" value="${basedir}/lib" />
 	<property name="build.dir" value="${basedir}/bin" />
 	<property name="classes.dir" value="${build.dir}/classes" />
-	<property name="main.class" value="org.mars.Adder"/>
+	<property name="main.class" value="org.mars.Calc"/>
 	<property name="ns.dir" value="${src.dir}/org/mars"/>
 	
 	<path id="lib.path.id">
@@ -25,13 +25,14 @@
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
 	<target name="cc">
-		<javacc target="${ns.dir}/Adder.jj"
+		<copy file="${src.dir}/Calc.jj}" tofile="${ns.dir}/Calc.jj"/>
+		<javacc target="${ns.dir}/Calc.jj"
 			outputdirectory="${ns.dir}/"
 			javacchome="${lib.dir}">
 		</javacc>
 	</target>
 	
-    <target name="run" depends="cc,jar">
+	<target name="run" depends="cc,jar">
 		<java jar="${build.dir}/jcc.jar" fork="true">
             <arg line=" 1+2+3+4+5"/>
 			<!--

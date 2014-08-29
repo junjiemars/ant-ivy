@@ -15,7 +15,11 @@ hs_err_pid*
 src/java/*/bin
 src/java/*/lib
 
+# javacc 
+src/java/jcc/src/org/mars
+
 # vim
 *.swp
 
+# distribution
 dist
