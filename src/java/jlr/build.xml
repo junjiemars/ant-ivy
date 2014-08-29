@@ -25,12 +25,11 @@
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
 	<target name="cc">
-		<copy file="${src.dir}/Calc.g" tofile="${ns.dir}/Calc.g"/>
-		<!--
-		<copy file="${src.dir}/Jlr.java" tofile="${ns.dir}/Jlr.java"/>
-		-->
+		<copy todir="${ns.dir}/">
+			<fileset dir="${src.dir}" includes="*.g"/>
+		</copy>
 		<exec executable="antlr.sh" os="Mac OS X" spawn="true">
-			<arg value="${ns.dir}/Calc.g"/>
+			<arg value="${ns.dir}/*.g"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
 		</exec>
@@ -41,30 +40,33 @@
 		-->
 	</target>
 	
-	<target name="debug-cc" depends="cc,jar">
+	<target name="dcc" depends="cc,jar">
 		<exec executable="antlrt.sh" os="Mac OS X" spawn="false"
-				dir="${classes.dir}" inputstring="calc parrt">
+				dir="${classes.dir}" inputstring="{1,  2, {3,4},5}">
 			<arg value="Calc"/>
-			<arg value="r"/>
-			<arg value="-tree"/>
+			<arg value="calc"/>
+			<arg value="-gui"/>
 			<!--
+			<arg value="-tree"/>
 			<arg value="-tokens"/>
 			<arg value="-gui"/>
 			-->
 		</exec>
 	</target>
 
-	<target name="clean-cc">
+	<target name="ccc">
 		<delete>
-			<fileset dir="${ns.dir}/" includes="*.java"/>
-			<fileset dir="${ns.dir}/" includes="*.tokens"/>
-			<fileset dir="${ns.dir}/" includes="*.g"/>
+			<fileset dir="${ns.dir}/">
+				<include name="*.java"/>
+				<include name="*.tokens"/>
+				<include name="*.g"/>
+			</fileset>
 		</delete>		
 	</target>
 
 	<target name="run" depends="cc,jar">
 		<java jar="${build.dir}/jlr.jar" fork="true">
-			<arg line="calc parrot"/>
+			<arg line="1+2;"/>
 			<!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,suspend=y,address=8000"/>

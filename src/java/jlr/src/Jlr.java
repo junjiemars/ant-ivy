@@ -9,7 +9,7 @@ public final class Jlr {
 		CommonTokenStream t = new CommonTokenStream(l);
 		CalcParser p = new CalcParser(t);
 
-		ParseTree tree = p.r();
+		ParseTree tree = p.calc();
 		out.println(tree.toStringTree(p));
 	}
 }
