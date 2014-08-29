@@ -15,8 +15,9 @@ hs_err_pid*
 src/java/*/bin
 src/java/*/lib
 
-# javacc 
+# cc
 src/java/jcc/src/org/mars
+src/java/jlr/src/org/mars
 
 # vim
 *.swp

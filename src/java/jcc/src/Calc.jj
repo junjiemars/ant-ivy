@@ -7,13 +7,14 @@ PARSER_BEGIN(Calc)
 
 package org.mars;
 import java.io.StringReader;
+import static java.lang.System.out;
 
     public class Calc {
         public static void main(String[] args) 
            throws ParseException, TokenMgrError {
             Calc parser = new Calc(System.in/*new StringReader(args[0])*/);
             int i = parser.start();
-            //System.out.println(String.format("%s = %d", args[0], i));
+						out.println("=" + i);	
         }
     }
 
@@ -25,28 +26,38 @@ SKIP: {
 	| "\r" 
 	| "\r\n"
 }
-TOKEN: {<PLUS:"+" >}
-TOKEN: {<NUMBER:(["0"-"9"])+ >}
+TOKEN: {
+		<PLUS:	"+" >
+	|	<MINUS: "-">
+}
+TOKEN: {
+		<INT:	(<DIGIT>)+ >
+	|	<#DIGIT:	["0"-"9"]>
+}
 
 int start(): {
-    int i;
     int value;
 } {
-    value = INT()
-    (
-        <PLUS>
-        i = INT()
-        { value += i; }
-    )*
-		";"
-    <EOF>
+		value = expr()
+	";"
     { return value; }
 }
 
-int INT(): {
-    Token t;
+int expr() : {
+	int a, b=0;
 } {
-   t = <NUMBER>
-   { return Integer.parseInt(t.image); }
+	a=add_expr() ( <PLUS> b=add_expr() )*
+	{ return a + b; }
 }
+
+int add_expr() : {
+	Token i;
+} {
+	i=<INT>
+	{ return Integer.parseInt(i.image); }
+}
+	
+
+
+
 

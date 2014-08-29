@@ -13,7 +13,11 @@ public interface CalcConstants {
   /** RegularExpression Id. */
   int PLUS = 5;
   /** RegularExpression Id. */
-  int NUMBER = 6;
+  int MINUS = 6;
+  /** RegularExpression Id. */
+  int INT = 7;
+  /** RegularExpression Id. */
+  int DIGIT = 8;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -26,7 +30,9 @@ public interface CalcConstants {
     "\"\\r\"",
     "\"\\r\\n\"",
     "\"+\"",
-    "<NUMBER>",
+    "\"-\"",
+    "<INT>",
+    "<DIGIT>",
     "\";\"",
   };
 

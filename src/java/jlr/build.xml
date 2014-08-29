@@ -1,5 +1,5 @@
 <!DOCTYPE project>
-<project name="jcc" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="jlr" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property name="root.dir" value="${basedir}/../../.." />
 	<property name="ivy.dir" value="${root.dir}/ivy" />
@@ -25,15 +25,30 @@
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
 	<target name="cc">
-		<copy file="${src.dir}/Calc.jj" tofile="${ns.dir}/Calc.jj"/>
-		<javacc target="${ns.dir}/Calc.jj"
-			outputdirectory="${ns.dir}/"
-			javacchome="${lib.dir}">
-		</javacc>
+		<copy file="${src.dir}/jlr.g" tofile="${ns.dir}/jlr.g"/>
+		<exec executable="antlr.sh" os="Mac OS X" spawn="true">
+			<arg value="${ns.dir}/jlr.g"/>
+			<arg value="-o"/>
+			<arg value="${ns.dir}"/> 
+		</exec>
+		<!--
+		<antlr target="${ns.dir}/jlr.g"
+			outputdirectory="${ns.dir}/">
+		</antlr>
+		-->
 	</target>
 	
+	<target name="debug-cc" depends="cc,jar">
+		<exec executable="antlrt.sh" os="Mac OS X" spawn="false"
+				dir="${classes.dir}" inputstring="calc parrt">
+			<arg value="jlr"/>
+			<arg value="r"/>
+			<arg value="-tokens"/>
+		</exec>
+	</target>
+
 	<target name="run" depends="cc,jar">
-		<java jar="${build.dir}/jcc.jar" fork="true">
+		<java jar="${build.dir}/jlr.jar" fork="true">
             <arg line=" 1+2+3+4+5"/>
 			<!--
 			<jvmarg value="-Xdebug" />
