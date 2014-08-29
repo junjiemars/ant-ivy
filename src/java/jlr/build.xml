@@ -25,9 +25,9 @@
 	<import file="${ivy.dir}/ivy-install.xml"/>
 
 	<target name="cc">
-		<copy file="${src.dir}/jlr.g" tofile="${ns.dir}/jlr.g"/>
+		<copy file="${src.dir}/Calc.g" tofile="${ns.dir}/Calc.g"/>
 		<exec executable="antlr.sh" os="Mac OS X" spawn="true">
-			<arg value="${ns.dir}/jlr.g"/>
+			<arg value="${ns.dir}/Calc.g"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
 		</exec>
@@ -41,10 +41,22 @@
 	<target name="debug-cc" depends="cc,jar">
 		<exec executable="antlrt.sh" os="Mac OS X" spawn="false"
 				dir="${classes.dir}" inputstring="calc parrt">
-			<arg value="jlr"/>
+			<arg value="Calc"/>
 			<arg value="r"/>
+			<arg value="-tree"/>
+			<!--
 			<arg value="-tokens"/>
+			<arg value="-gui"/>
+			-->
 		</exec>
+	</target>
+
+	<target name="clean-cc">
+		<delete>
+			<fileset dir="${ns.dir}/" includes="*.java"/>
+			<fileset dir="${ns.dir}/" includes="*.tokens"/>
+			<fileset dir="${ns.dir}/" includes="*.g"/>
+		</delete>		
 	</target>
 
 	<target name="run" depends="cc,jar">
@@ -56,5 +68,5 @@
 			-->
 		</java>
 	</target>
-
+	
 </project>
