@@ -32,6 +32,8 @@
 			<arg value="${ns.dir}/*.g"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
+			<arg value="-no-listener"/>
+			<arg value="-visitor"/>
 		</exec>
 		<!--
 		<antlr target="${ns.dir}/jlr.g"
