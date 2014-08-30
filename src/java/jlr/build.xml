@@ -28,7 +28,7 @@
 		<copy todir="${ns.dir}/">
 			<fileset dir="${src.dir}" includes="*.g"/>
 		</copy>
-		<exec executable="antlr.sh" os="Mac OS X" spawn="true">
+		<exec executable="antlr.sh" os="Mac OS X" spawn="false">
 			<arg value="${ns.dir}/*.g"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
@@ -42,7 +42,7 @@
 	
 	<target name="dcc" depends="cc,jar">
 		<exec executable="antlrt.sh" os="Mac OS X" spawn="false"
-				dir="${classes.dir}" inputstring="{1,  2, {3,4},5}">
+				dir="${classes.dir}" inputstring="193&#10;a=5&#10;a+b*2&#10;">
 			<arg value="Calc"/>
 			<arg value="calc"/>
 			<arg value="-gui"/>
@@ -75,3 +75,4 @@
 	</target>
 	
 </project>
+

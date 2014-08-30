@@ -1,9 +1,19 @@
 grammar Calc;
-calc		:		'{' value (',' value)* '}' ;	
-value		:		calc
-				|		INT	
+calc		:		stat+ ;
+
+stat		:		expr EOS
+				|		ID '=' expr EOS
+				|		EOS	
 				;
 
+expr		:		expr ('*'|'/') expr
+				|		expr ('+'|'/') expr 
+				|		INT
+				|		ID
+				|		'(' expr ')'
+				;
+
+ID		:		[a-zA-Z]+ ;
 INT		:		[0-9]+ ;
-ID		:		[a-z]+ ;
-WS		:		[ \t\r\n]+ -> skip ;
+EOS		:		'\r'? '\n' ;
+WS		:		[ \t]+ -> skip ;
