@@ -4,16 +4,23 @@ sql			:		stat+
 				;
 			
 stat		:		select EOS
-//				|		insert EOS
+				|		insert EOS
+				|		EOS
 				;
 
 select	:		'select' fid 'from' tid 'where' pred
+				;
+
+insert	:		'insert into' tid '(' fid ')' 'values' '(' vid ')' 'where' pred
 				;
 
 fid			:		ID (',' ID)*
 				;
 
 tid			:		ID (',' ID)*
+				;
+
+vid			:		expr (',' expr)*
 				;
 
 pred		:		pred ('and'|'or') pred
@@ -26,8 +33,6 @@ expr		: 	INT
 				|		STR
 				;
 
-//insert	:		'insert into' ID 'values'
-//				;
 STR		: '\'' .*? '\'' ;
 INT		: D+
 			;
