@@ -4,8 +4,24 @@ import static java.lang.System.out;
 
 public final class Jlr {
 	public static void main(String[] args) throws Exception {
-		//calcT(args);
-		calcE(args);
+		//calcT(args); // build with -listener -no-visitor
+		//calcE(args); // build with -no-listener -visitor
+		sqlT(args);
+	}
+
+	static final void sqlT(final String[] args) throws Exception {
+		ANTLRInputStream in = new ANTLRInputStream(System.in);
+		SqlLexer l = new SqlLexer(in);
+		CommonTokenStream t = new CommonTokenStream(l);
+		SqlParser p = new SqlParser(t);
+
+		ParseTree tree = p.sql();
+		out.println(tree.toStringTree(p));
+
+		ParseTreeWalker w = new ParseTreeWalker();
+		w.walk(new SqlT(), tree);
+		out.println();
+	
 	}
 
 	static final void calcT(final String[] args) throws Exception {

@@ -33,7 +33,7 @@
 		<property name="ivy.initialized" value="true"/>
     </target>
 
-	<target name="resolve-ivy" depends="clean-lib,install-ivy" 
+	<target name="resolve-ivy" depends="install-ivy" 
 		description="resolve and retrieve dependencies with ivy">
         <mkdir dir="${lib.dir}"/> 
         <ivy:resolve file="${ivy.file}"/>
@@ -108,7 +108,7 @@
     </target>
 
     <target name="jar" depends="jar-exe,jar-lib"
-		description="make jar file for this project">
+			description="make jar file for this project">
     </target>
 
 	<target name="check-log4j">
@@ -227,7 +227,7 @@
         </condition>
 	</target>
 
-    <target name="ivy-new-version" depends="install-ivy,check-revision" 
+		<target name="ivy-new-version" depends="install-ivy,check-revision" 
 		unless="ivy.new.revision">
 		<echo message="git/dbg revision: ${git.rev}/${dbg.rev}"/>
 
@@ -249,8 +249,8 @@
         description="create version file in classpath and mask it in jar">
         <mkdir dir="${classes.dir}"/>
         <echo message="version=${ivy.new.revision}" 
-			file="${classes.dir}/${ant.project.name}.properties" 
-			append="false" />
+					file="${classes.dir}/${ant.project.name}.properties" 
+					append="false" />
 
         <!-- load generated version properties file -->
         <property file="${classes.dir}/${ant.project.name}.properties" />

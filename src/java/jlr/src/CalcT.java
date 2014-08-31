@@ -14,11 +14,12 @@ public final class CalcT extends CalcBaseListener {
 		out.print('"');
 	}
 
-	@Override
-	public void enterValue(CalcParser.ValueContext ctx) {
-		if (null != ctx.INT()) {			
-			int value = Integer.valueOf(ctx.INT().getText());
-			out.printf("\\u%04x", value);
-		}
-	}
+	
+//	@Override
+//	public void enterValue(CalcParser.ValueContext ctx) {
+//		if (null != ctx.INT()) {			
+//			int value = Integer.valueOf(ctx.INT().getText());
+//			out.printf("\\u%04x", value);
+//		}
+//	}
 }

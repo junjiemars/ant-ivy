@@ -32,7 +32,7 @@
 			<arg value="${ns.dir}/*.g"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
-			<arg value="-no-listener"/>
+			<arg value="-listener"/>
 			<arg value="-visitor"/>
 		</exec>
 		<!--
@@ -44,10 +44,12 @@
 	
 	<target name="dcc" depends="cc,jar">
 		<exec executable="antlrt.sh" os="Mac OS X" spawn="false"
-				dir="${classes.dir}" inputstring="193&#10;a=5&#10;a+b*2&#10;">
-			<arg value="Calc"/>
-			<arg value="calc"/>
+				dir="${classes.dir}" 
+				inputstring="select id1,id2 from t1 where id2='a';">
+			<arg value="Sql"/>
+			<arg value="sql"/>
 			<arg value="-gui"/>
+			<!-- \n -> &#10; -->
 			<!--
 			<arg value="-tree"/>
 			<arg value="-tokens"/>
