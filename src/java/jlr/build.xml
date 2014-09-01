@@ -28,7 +28,7 @@
 		<copy todir="${ns.dir}/">
 			<fileset dir="${src.dir}" includes="*.g"/>
 		</copy>
-		<exec executable="antlr.sh" os="Mac OS X" spawn="false">
+		<exec executable="antlr.sh" spawn="false">
 			<arg value="${ns.dir}/*.g"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
@@ -43,7 +43,7 @@
 	</target>
 	
 	<target name="dcc" depends="cc,jar">
-		<exec executable="antlrt.sh" os="Mac OS X" spawn="false"
+		<exec executable="antlrt.sh" spawn="false"
 				dir="${classes.dir}" 
 				inputstring="select id1,id2,id3 from t1 where id2=3 and (id1='a' or id3>.5); insert into t2 (id1,id2) values(1,'a') where id3>=.314;">
 			<arg value="Sql"/>

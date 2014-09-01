@@ -5,18 +5,18 @@ sql			:		stat+
 			
 stat		:		select EOS
 				|		insert EOS
-				|		update EOS
+//				|		update EOS
 				|		EOS
 				;
 
-select	:		'select' fid 'from' tid 'where' pred
+select	:		'select' fid 'from' tid ('where' pred)?
 				;
 
 insert	:		'insert into' tid '(' fid ')' 'values' '(' vid ')' 'where' pred
 				;
 
-update	:		'update' tid 'set' assi 'where' pred
-				;
+//update	:		'update' tid 'set' assi 'where' pred
+//				;
 
 fid			:		ID (',' ID)*
 				;
@@ -27,10 +27,10 @@ tid			:		ID (',' ID)*
 vid			:		expr (',' expr)*
 				;
 
-assi		:		assi (',' assi)*
-				|		ID '=' expr
-				|		assi
-				;
+//assi		:		assi (',' assi)*
+//				|		ID '=' expr
+//				|		assi
+//				;
 
 pred		:		pred ('and'|'or') pred
 				| 	ID ('='|'<'|'<='|'>'|'>='|'<>') expr
