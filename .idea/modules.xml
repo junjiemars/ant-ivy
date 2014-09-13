@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/src/java/jcc/jcc.iml" filepath="$PROJECT_DIR$/src/java/jcc/jcc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/java/jlr/jlr.iml" filepath="$PROJECT_DIR$/src/java/jlr/jlr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/java/jsql/jsql.iml" filepath="$PROJECT_DIR$/src/java/jsql/jsql.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/java/lang/lang.iml" filepath="$PROJECT_DIR$/src/java/lang/lang.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/java/redis/redis.iml" filepath="$PROJECT_DIR$/src/java/redis/redis.iml" />
+    </modules>
+  </component>
+</project>
+

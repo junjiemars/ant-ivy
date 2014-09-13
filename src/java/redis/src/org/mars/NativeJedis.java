@@ -6,7 +6,7 @@ import static java.lang.System.out;
 
 public final class NativeJedis {
 	public static final void run() {
-		Jedis r = new Jedis("as0", 6379, 100);
+		Jedis r = new Jedis("localhost", 6379, 100);
 		r.connect();
 		Set<byte[]> s = r.keys("*".getBytes());
 		for (byte[] b : s) {
