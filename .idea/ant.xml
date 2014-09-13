@@ -5,6 +5,8 @@
     <buildFile url="file://$PROJECT_DIR$/src/java/jsql/build.xml" />
     <buildFile url="file://$PROJECT_DIR$/src/java/jcc/build.xml" />
     <buildFile url="file://$PROJECT_DIR$/src/java/redis/build.xml" />
+    <buildFile url="file://$PROJECT_DIR$/build.xml" />
+    <buildFile url="file://$PROJECT_DIR$/src/java/jlr/build.xml" />
   </component>
 </project>
 

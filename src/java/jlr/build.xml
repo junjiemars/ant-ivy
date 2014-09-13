@@ -1,0 +1,82 @@
+<!DOCTYPE project>
+<project name="jlr" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<property name="root.dir" value="${basedir}/../../.." />
+	<property name="ivy.dir" value="${root.dir}/ivy" />
+	<property name="ivy.file" value="${basedir}/ivy.xml" />
+	<property name="dist.dir" value="${root.dir}/dist" />
+
+	<property name="src.dir" value="${basedir}/src" />
+	<property name="lib.dir" value="${basedir}/lib" />
+	<property name="build.dir" value="${basedir}/bin" />
+	<property name="classes.dir" value="${build.dir}/classes" />
+	<property name="main.class" value="Jlr"/>
+	<property name="ns.dir" value="${src.dir}/org/mars"/>
+	
+	<path id="lib.path.id">
+        <fileset dir="${lib.dir}" />
+        <!--
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        -->
+    </path>
+
+	<import file="${ivy.dir}/ivy-install.xml"/>
+
+	<target name="cc">
+		<copy todir="${ns.dir}/">
+			<fileset dir="${src.dir}" includes="*.g"/>
+		</copy>
+		<exec executable="antlr.sh" spawn="false">
+			<arg value="${ns.dir}/*.g"/>
+			<arg value="-o"/>
+			<arg value="${ns.dir}"/> 
+			<arg value="-listener"/>
+			<arg value="-visitor"/>
+		</exec>
+		<!--
+		<antlr target="${ns.dir}/jlr.g"
+			outputdirectory="${ns.dir}/">
+		</antlr>
+		-->
+	</target>
+	
+	<target name="dcc" depends="cc,jar">
+		<exec executable="antlrt.sh" spawn="false"
+				dir="${classes.dir}" 
+				inputstring="select id1,id2,id3 from t1 where id2=3 and (id1='a' or id3>.5); insert into t2 (id1,id2) values(1,'a') where id3>=.314;">
+			<arg value="Sql"/>
+			<arg value="sql"/>
+			<arg value="-gui"/>
+			<!-- \n -> &#10; -->
+			<!--
+			<arg value="-tree"/>
+			<arg value="-tokens"/>
+			<arg value="-gui"/>
+			-->
+		</exec>
+	</target>
+
+	<target name="ccc">
+		<delete>
+			<fileset dir="${ns.dir}/">
+				<include name="*.java"/>
+				<include name="*.tokens"/>
+				<include name="*.g"/>
+			</fileset>
+		</delete>		
+	</target>
+
+	<target name="run" depends="cc,jar">
+		<java jar="${build.dir}/jlr.jar" fork="true">
+			<arg line="1+2;"/>
+			<!--
+			<jvmarg value="-Xdebug" />
+			<jvmarg value="-Xrunjdwp:transport=dt_socket,suspend=y,address=8000"/>
+			-->
+		</java>
+	</target>
+	
+</project>
+
