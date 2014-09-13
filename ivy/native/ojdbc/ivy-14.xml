@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ivy-module version="1.0">
-	<info organisation="com.xwtec" module="ojdbc" revision="14" status="release" publication="20140913100859">
+	<info organisation="com.xwtec" module="ojdbc" revision="14" status="release" publication="20140913112004">
 		<ivyauthor name="junjiemars@gmail.com"/>
 	</info>
 
