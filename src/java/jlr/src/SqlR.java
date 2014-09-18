@@ -3,13 +3,19 @@ import java.util.Map;
 import static java.lang.System.out;
 
 public final class SqlR extends SqlBaseVisitor<String> {
-	
-	@Override /* tid */ 
-	public String visitTid(SqlParser.TidContext ctx) {
-		final String s = String.format("zscan %s 0", ctx.ID());
-		out.println(s);
-		return (s);
-	}
+
+    @Override
+    public String visitStat(SqlParser.StatContext ctx) {
+        final String s = visitSelect(ctx.select());
+        return (s);
+    }
+
+//	@Override /* tid */
+//	public String visitTid(SqlParser.TidContext ctx) {
+//		final String s = String.format("zscan %s 0", ctx.ID());
+//		out.println(s);
+//		return (s);
+//	}
 
 //	@Override /* expr EOS */
 //	public Integer visitEval(SqlParser.EvalContext ctx) {

@@ -26,10 +26,10 @@
 
 	<target name="cc">
 		<copy todir="${ns.dir}/">
-			<fileset dir="${src.dir}" includes="*.g"/>
+			<fileset dir="${src.dir}" includes="*.g4"/>
 		</copy>
 		<exec executable="antlr.sh" spawn="false">
-			<arg value="${ns.dir}/*.g"/>
+			<arg value="${ns.dir}/*.g4"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
 			<arg value="-listener"/>
@@ -63,7 +63,7 @@
 			<fileset dir="${ns.dir}/">
 				<include name="*.java"/>
 				<include name="*.tokens"/>
-				<include name="*.g"/>
+				<include name="*.g4"/>
 			</fileset>
 		</delete>		
 	</target>

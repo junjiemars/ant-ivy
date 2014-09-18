@@ -1,22 +1,24 @@
 grammar	Sql;
 
 sql			:		stat+ 
-				;
+			;
 			
 stat		:		select EOS
-				|		insert EOS
-//				|		update EOS
-				|		EOS
-				;
+			|		insert EOS
+//			|		update EOS
+			|		EOS
+			;
 
-select	:		'select' fid 'from' tid ('where' pred)?
-				;
+select	:		'select' fid 'from' tid (where)?
+		;
 
 insert	:		'insert into' tid '(' fid ')' 'values' '(' vid ')' 'where' pred
-				;
+		;
 
 //update	:		'update' tid 'set' assi 'where' pred
 //				;
+where   :   'where' pred
+        ;
 
 fid			:		ID (',' ID)*
 				;
@@ -38,9 +40,9 @@ pred		:		pred ('and'|'or') pred
 				;
 
 expr		: 	INT	
-				|		FLO
-				|		STR
-				;
+			|	FLO
+			|	STR
+			;
 
 STR		: '\'' .*? '\'' ;
 INT		: D+

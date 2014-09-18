@@ -1,5 +1,10 @@
+import com.sun.org.apache.xml.internal.utils.StringBufferPool;
 import org.antlr.v4.runtime.*;
 import org.antlr.v4.runtime.tree.*;
+
+import java.io.StringBufferInputStream;
+import java.io.StringReader;
+
 import static java.lang.System.out;
 
 public final class Jlr {
@@ -11,7 +16,8 @@ public final class Jlr {
 	}
 
 	static final void sqlR(final String[] args) throws Exception {
-		ANTLRInputStream in = new ANTLRInputStream(System.in);
+        final StringReader reader = new StringReader(args[0]);
+		ANTLRInputStream in = new ANTLRInputStream(/*System.in*/reader);
 		SqlLexer l = new SqlLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
 		SqlParser p = new SqlParser(t);
