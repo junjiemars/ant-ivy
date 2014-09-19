@@ -44,8 +44,9 @@
 	
 	<target name="dcc" depends="cc,jar">
 		<exec executable="antlrt.sh" spawn="false"
-				dir="${classes.dir}" 
-				inputstring="select id1,id2,id3 from t1 where id2=3 and (id1='a' or id3>.5); insert into t2 (id1,id2) values(1,'a') where id3>=.314;">
+			dir="${classes.dir}"
+			inputstring="select id1,id2,id3 from t1 where id2=3 and (id1='a' or id3>.5);
+			  insert into t2 (id1,id2) values(1,'a') where id3>=.314;">
 			<arg value="Sql"/>
 			<arg value="sql"/>
 			<arg value="-gui"/>
@@ -70,7 +71,7 @@
 
 	<target name="run" depends="cc,jar">
 		<java jar="${build.dir}/jlr.jar" fork="true">
-			<arg line="1+2;"/>
+			<arg line="1+2\n"/>
 			<!--
 			<jvmarg value="-Xdebug" />
 			<jvmarg value="-Xrunjdwp:transport=dt_socket,suspend=y,address=8000"/>

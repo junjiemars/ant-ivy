@@ -1,23 +1,29 @@
-import com.sun.org.apache.xml.internal.utils.StringBufferPool;
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
-import java.io.StringBufferInputStream;
 import java.io.StringReader;
 
 import static java.lang.System.out;
 
 public final class Jlr {
 	public static void main(String[] args) throws Exception {
-		//calcT(args); // build with -listener -no-visitor
-		//calcE(args); // build with -no-listener -visitor
-		//sqlT(args);
-		sqlR(args);
+        ANTLRInputStream in = null;
+        if (args.length > 0) {
+            final StringReader reader = new StringReader(args[0]);
+            in = new ANTLRInputStream(reader);
+        } else {
+            in = new ANTLRInputStream(System.in);
+        }
+		calcT(in); // build with -listener -no-visitor
+//		calcE(in); // build with -no-listener -visitor
+		//sqlT(in);
+//		sqlR(in);
+
 	}
 
-	static final void sqlR(final String[] args) throws Exception {
-        final StringReader reader = new StringReader(args[0]);
-		ANTLRInputStream in = new ANTLRInputStream(/*System.in*/reader);
+	static final void sqlR(final ANTLRInputStream in) throws Exception {
 		SqlLexer l = new SqlLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
 		SqlParser p = new SqlParser(t);
@@ -29,8 +35,7 @@ public final class Jlr {
 		e.visit(tree);
 	}
 
-	static final void sqlT(final String[] args) throws Exception {
-		ANTLRInputStream in = new ANTLRInputStream(System.in);
+	static final void sqlT(final ANTLRInputStream in) throws Exception {
 		SqlLexer l = new SqlLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
 		SqlParser p = new SqlParser(t);
@@ -44,8 +49,7 @@ public final class Jlr {
 	
 	}
 
-	static final void calcT(final String[] args) throws Exception {
-		ANTLRInputStream in = new ANTLRInputStream(System.in);
+	static final void calcT(final ANTLRInputStream in) throws Exception {
 		CalcLexer l = new CalcLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
 		CalcParser p = new CalcParser(t);
@@ -54,12 +58,12 @@ public final class Jlr {
 		out.println(tree.toStringTree(p));
 
 		ParseTreeWalker w = new ParseTreeWalker();
-		w.walk(new CalcT(), tree);
+        final CalcT T = new CalcT(p);
+		w.walk(T, tree);
 		out.println();
 	}
 
-	static final void calcE(final String[] args) throws Exception {
-		ANTLRInputStream in = new ANTLRInputStream(System.in);
+	static final void calcE(final ANTLRInputStream in) throws Exception {
 		CalcLexer l = new CalcLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
 		CalcParser p = new CalcParser(t);

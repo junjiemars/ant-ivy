@@ -16,7 +16,7 @@ expr		:		expr op=(MUL|DIV) expr				#muldiv
 
 ID		:		[a-zA-Z]+ ;
 INT		:		[0-9]+ ;
-EOS		:		'\r'? '\n' ;
+EOS		:		';' ;
 MUL		:		'*' ;
 DIV		:		'/' ;
 ADD		:		'+' ;
