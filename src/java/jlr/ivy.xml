@@ -21,7 +21,9 @@
 	</publications>
 	-->
    <dependencies>
-	 		<dependency org="org.antlr" name="antlr4-runtime" rev="4.3"
-				conf="build->default,sources" />
+	   <dependency org="org.antlr" name="antlr4-runtime" rev="4.3"
+                   conf="build->default,sources" />
+       <dependency org="org.antlr" name="antlr-complete" rev="3.5.2"
+                   conf="build->default" />
    </dependencies>
 </ivy-module>
