@@ -28,7 +28,17 @@
 		<copy todir="${ns.dir}/">
 			<fileset dir="${src.dir}" includes="*.g4"/>
 		</copy>
-		<exec executable="antlr.sh" spawn="false">
+        <condition property="antlr.sh" value="antlr.bat">
+            <and>
+                <os family="windows" />
+            </and>
+        </condition>
+        <condition property="antlr.sh" value="antlr.sh">
+            <not>
+                <os family="windows"/>
+            </not>
+        </condition>
+		<exec executable="${antlr.sh}" spawn="false">
 			<arg value="${ns.dir}/*.g4"/>
 			<arg value="-o"/>
 			<arg value="${ns.dir}"/> 
@@ -44,7 +54,17 @@
 	</target>
 	
 	<target name="dcc" depends="cc,jar">
-		<exec executable="antlrt.sh" spawn="false"
+        <condition property="antlrt.sh" value="antlrt.bat">
+            <and>
+                <os family="windows"/>
+            </and>
+        </condition>
+        <condition property="antlrt.sh" value="antlrt.sh">
+            <not>
+                <os family="windows"/>
+            </not>
+        </condition>
+		<exec executable="${antlrt.sh}" spawn="false"
 			dir="${classes.dir}"
 			inputstring="select id1,id2,id3 from t1 where id2=3 and (id1='a' or id3>.5);
 			  insert into t2 (id1,id2) values(1,'a') where id3>=.314;">
