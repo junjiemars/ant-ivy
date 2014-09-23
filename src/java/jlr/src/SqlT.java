@@ -3,14 +3,14 @@ import org.antlr.v4.runtime.tree.*;
 import java.lang.*;
 import static java.lang.System.out;
 
-public final class SqlT extends SqlBaseListener {
+public final class SqlT extends SQLBaseListener {
 	@Override
-	public void enterSelect(SqlParser.SelectContext ctx) {
+	public void enterSelect(SQLParser.SelectContext ctx) {
 		out.print("enter select stat");
 	}
 
 	@Override
-	public void exitSelect(SqlParser.SelectContext ctx) {
+	public void exitSelect(SQLParser.SelectContext ctx) {
 		out.print("exit select stat");
 	}
 

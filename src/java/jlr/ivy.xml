@@ -23,5 +23,7 @@
    <dependencies>
 	   <dependency org="org.antlr" name="antlr4-runtime" rev="4.3"
                    conf="build->default,sources" />
+       <dependency org="redis.clients" name="jedis" rev="2.5.2"
+                   conf="build->default,sources"/>
    </dependencies>
 </ivy-module>

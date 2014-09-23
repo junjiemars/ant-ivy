@@ -2,10 +2,10 @@ import java.util.HashMap;
 import java.util.Map;
 import static java.lang.System.out;
 
-public final class SqlR extends SqlBaseVisitor<String> {
+public final class SqlR extends SQLBaseVisitor<String> {
 
     @Override
-    public String visitStat(SqlParser.StatContext ctx) {
+    public String visitStat(SQLParser.StatContext ctx) {
         final String s = visitSelect(ctx.select());
         return (s);
     }

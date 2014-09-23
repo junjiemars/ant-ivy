@@ -1,10 +1,10 @@
-grammar	Sql;
+grammar	SQL;
 
 sql			:		stat+ 
 			;
 			
 stat		:		select EOS
-			|		insert EOS
+//			|		insert EOS
 //			|		update EOS
 			|		EOS
 			;
@@ -12,8 +12,8 @@ stat		:		select EOS
 select	:		'select' fid 'from' tid (where)?
 		;
 
-insert	:		'insert into' tid '(' fid ')' 'values' '(' vid ')' 'where' pred
-		;
+//insert	:		'insert into' tid '(' fid ')' 'values' '(' vid ')' 'where' pred
+//		;
 
 //update	:		'update' tid 'set' assi 'where' pred
 //				;

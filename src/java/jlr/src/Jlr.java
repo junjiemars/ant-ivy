@@ -16,29 +16,31 @@ public final class Jlr {
         } else {
             in = new ANTLRInputStream(System.in);
         }
-		calcT(in); // build with -listener -no-visitor
+//		calcT(in); // build with -listener -no-visitor
 //		calcE(in); // build with -no-listener -visitor
-		//sqlT(in);
+//		sqlT(in);
 //		sqlR(in);
-
-	}
+//        propT(in);
+//        propE(in);
+        rqlE(in);
+}
 
 	static final void sqlR(final ANTLRInputStream in) throws Exception {
-		SqlLexer l = new SqlLexer(in);
+		SQLLexer l = new SQLLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
-		SqlParser p = new SqlParser(t);
+		SQLParser p = new SQLParser(t);
 
 		ParseTree tree = p.sql();
 		out.println(tree.toStringTree(p));
 
-		SqlVisitor e = new SqlR();
+		SQLVisitor e = new SqlR();
 		e.visit(tree);
 	}
 
 	static final void sqlT(final ANTLRInputStream in) throws Exception {
-		SqlLexer l = new SqlLexer(in);
+		SQLLexer l = new SQLLexer(in);
 		CommonTokenStream t = new CommonTokenStream(l);
-		SqlParser p = new SqlParser(t);
+		SQLParser p = new SQLParser(t);
 
 		ParseTree tree = p.sql();
 		out.println(tree.toStringTree(p));
@@ -74,4 +76,47 @@ public final class Jlr {
 		CalcVisitor e = new CalcE();
 		e.visit(tree);
 	}
+
+    static final void propT(final ANTLRInputStream in) throws Exception {
+        PropertyLexer l = new PropertyLexer(in);
+        CommonTokenStream t = new CommonTokenStream(l);
+        PropertyParser p = new PropertyParser(t);
+
+        ParseTree tree = p.file();
+        out.println(tree.toStringTree(p));
+
+        ParseTreeWalker w = new ParseTreeWalker();
+        final PropertyT T = new PropertyT();
+        w.walk(T, tree);
+        out.println();
+    }
+
+    static final void propE(final ANTLRInputStream in) throws Exception {
+        PropertyLexer l = new PropertyLexer(in);
+        CommonTokenStream t = new CommonTokenStream(l);
+        PropertyParser p = new PropertyParser(t);
+
+        ParseTree tree = p.file();
+        out.println(tree.toStringTree(p));
+
+        PropertyVisitor e = new PropertyE();
+        e.visit(tree);
+    }
+
+    static final void rqlE(final ANTLRInputStream in) throws Exception {
+        RQLLexer l = new RQLLexer(in);
+        CommonTokenStream t = new CommonTokenStream(l);
+        RQLParser p = new RQLParser(t);
+
+        ParseTree tree = p.select();
+        out.println(tree.toStringTree(p));
+
+        RQLEmitter e = new RQLEmitter();
+        e.visit(tree);
+
+        for (String s : e.ins()) {
+            out.println(s);
+        }
+    }
+
 }
